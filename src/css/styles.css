@@ -25,13 +25,27 @@ body {
 }
 
 button {
-  left: 54%;
   cursor: pointer;
+}
+
+.search {
+  left: 54%;
+  width: 27px;
+  display: flex;
   justify-content: center;
   align-items: center;
-  display: flex;
   position: absolute;
-  width: 27px;
+}
+.wrap {
+  box-shadow: 0 10px 48px #000, 0 1px 1px #f7f70529, 0 1px 6px #0310f914;
+  background-color: rgb(62, 156, 228);
+
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
 }
 
 .search-form {
@@ -44,14 +58,13 @@ button {
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-  background-color: rgb(62, 156, 228);
 }
 
 .gallery {
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  margin: 50px;
+  margin-bottom: 50px;
 }
 
 .photo-card {
@@ -90,5 +103,16 @@ input:focus {
   background-color: yellow;
   width: 105px;
   margin-bottom: 50px;
-  left: 44%;
+  margin-left: 50%;
+}
+
+.load-more:hover {
+  color: yellow;
+  background-color: rgb(62, 156, 228);
+  border-color: yellow;
+}
+
+.gallery-wrap {
+  margin: 0 auto;
+  max-width: 1320px;
 }

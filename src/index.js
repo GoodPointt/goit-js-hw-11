@@ -25,6 +25,7 @@ refs.formRef.addEventListener('submit', onSubmit);
 refs.loadMoreBtnRef.addEventListener('click', onLoadMore);
 
 refs.loadMoreBtnRef.classList.add('is-hidden');
+// refs.loadMoreBtnRef.scrollIntoView({ behavior: 'smooth' });
 
 async function onSubmit(e) {
   e.preventDefault();
@@ -71,10 +72,13 @@ async function onLoadMore() {
   }
   renderGallery(picsArr);
   loading();
+
+  smoothScroll();
 }
 
 function renderGallery(arr) {
   if (!arr) return;
+  headerHightCalc();
   const markup = arr
     .map(
       ({
@@ -117,4 +121,24 @@ function clearSearch() {
 
 function loading() {
   refs.loadingImgRef.classList.toggle('is-hidden');
+}
+
+function smoothScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
+/////////////////////////////
+function headerHightCalc(params) {
+  const { height: pageHeaderHeight } = document
+    .querySelector('.wrap')
+    .getBoundingClientRect();
+  let pageTopPadding = pageHeaderHeight + 10;
+
+  document.body.style.paddingTop = `${pageTopPadding}px`;
 }
