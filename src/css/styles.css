@@ -20,6 +20,16 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  margin: 0 auto;
+}
+button {
+  left: 54%;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: absolute;
+  width: 27px;
 }
 
 /* #search-box {
@@ -29,10 +39,52 @@ body {
   margin-bottom: 16px;
 } */
 
+.search-form {
+  position: relative;
+  max-width: 100%;
+  height: 50px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: rgb(62, 156, 228);
+}
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin: 50px;
+}
+
+.photo-card {
+  max-height: 300px;
+  max-width: 300px;
+}
+
+.info {
+  display: flex;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 .loading-img {
   position: absolute;
+  left: 56%;
 }
 
 .is-hidden {
   display: none;
 }
+
+input:focus {
+  outline: 4px solid yellow;
+}
+/* .wrap {
+  display: block;
+  width: 100
+} */
