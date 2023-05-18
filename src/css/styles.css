@@ -22,12 +22,12 @@ body {
   line-height: 1.5;
 }
 
-#search-box {
+/* #search-box {
   font: inherit;
   padding: 8px;
   max-width: 320px;
   margin-bottom: 16px;
-}
+} */
 
 .loading-img {
   position: absolute;
@@ -35,14 +35,4 @@ body {
 
 .is-hidden {
   display: none;
-}
-
-.value {
-  font-size: 20px;
-  font-weight: normal;
-}
-
-.list-item {
-  font-size: 20;
-  font-weight: bold;
 }

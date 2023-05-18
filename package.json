@@ -1,23 +1,24 @@
 {
-  "name": "goit-js-hw-10",
+  "name": "goit-js-hw-11",
   "version": "2.0.0",
   "description": "",
-  "homepage": "https://GoodPointt.github.io/goit-js-hw-10",
+  "homepage": "https://GoodPointt.github.io/goit-js-hw-11",
   "scripts": {
     "start": "parcel src/*.html --open",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-10/"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-11/"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GoodPointt/goit-js-hw-10.git"
+    "url": "git+https://github.com/GoodPointt/goit-js-hw-11.git"
   },
   "keywords": [],
   "author": "Dmytro Petyshyn <dev6012@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/GoodPointt/goit-js-hw-10/issues"
+    "url": "https://github.com/GoodPointt/goit-js-hw-11/issues"
   },
   "dependencies": {
+    "axios": "^1.4.0",
     "lodash.debounce": "^4.0.8",
     "modern-normalize": "^1.1.0",
     "notiflix": "^3.2.6"
