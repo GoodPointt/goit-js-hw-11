@@ -1,17 +1,21 @@
-import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 import refs from './refs';
 import './css/styles.css';
 
+const lightbox = new SimpleLightbox('.gallery a');
 const BASE_URL = 'https://pixabay.com/api/';
-
 const API_KEY = '36517791-fe7b9367de166f0848dfc6a7d';
-const q = 'cat';
+const PER_PAGE = '40';
 
-async function getPictures(query) {
+let currentPage = 1;
+let searchQuery = '';
+
+async function getPictures(query, page) {
   const response = await fetch(
-    `${BASE_URL}?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safe_search=true&page=1&per_page=40`
+    `${BASE_URL}?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safe_search=true&page=${page}&per_page=${PER_PAGE}`
   );
   const pictures = await response.json();
   return pictures;
@@ -20,41 +24,70 @@ async function getPictures(query) {
 refs.formRef.addEventListener('submit', onSubmit);
 refs.loadMoreBtnRef.addEventListener('click', onLoadMore);
 
+refs.loadMoreBtnRef.classList.add('is-hidden');
+
 async function onSubmit(e) {
   e.preventDefault();
+  currentPage = 1;
   clearSearch();
-  const searchQuery = e.currentTarget.elements.searchQuery.value
-    .trim()
-    .toLowerCase();
-  if (searchQuery === '')
+  refs.loadMoreBtnRef.classList.add('is-hidden');
+
+  searchQuery = e.currentTarget.elements.searchQuery.value.trim().toLowerCase();
+
+  if (searchQuery === '') {
     return Notify.info('U should enter picture name to search first!');
+  }
+
   loading();
-  const picsToRender = await getPictures(searchQuery);
+
+  const picsToRender = await getPictures(searchQuery, currentPage);
+  const picsArr = picsToRender.hits;
+  const picsMatch = picsToRender.totalHits;
+
+  if (picsArr.length === 0) {
+    loading();
+    return Notify.failure('There is nothing found :(');
+  }
+  Notify.success(`We found ${picsMatch} ${searchQuery}s for you!`);
+
+  renderGallery(picsArr);
   loading();
-  picsArr = picsToRender.hits;
-  if (picsArr.length === 0) return Notify.failure('There is nothing found :(');
-  renderPictures(picsArr);
+
+  if (Math.round(picsMatch / Number(PER_PAGE)) > currentPage) {
+    refs.loadMoreBtnRef.classList.remove('is-hidden');
+  }
 }
 
-async function onLoadMore() {}
+async function onLoadMore() {
+  currentPage += 1;
+  loading();
+  const picsToRender = await getPictures(searchQuery, currentPage);
+  console.log(picsToRender);
+  const picsArr = picsToRender.hits;
+  const picsMatch = picsToRender.totalHits;
+  if (Math.round(picsMatch / Number(PER_PAGE)) < currentPage) {
+    refs.loadMoreBtnRef.classList.add('is-hidden');
+    Notify.info("We're sorry, but you've reached the end of search results.");
+  }
+  renderGallery(picsArr);
+  loading();
+}
 
-function renderPictures(arr) {
+function renderGallery(arr) {
   if (!arr) return;
-
-  return arr.map(
-    ({
-      webformatURL,
-      largeImageURL,
-      tags,
-      likes,
-      views,
-      comments,
-      downloads,
-    }) => {
-      refs.galleryRef.insertAdjacentHTML(
-        'beforeend',
-        `<div class="photo-card">
-    <img src="${webformatURL}" alt="${tags}" loading="lazy" width="300"/>
+  const markup = arr
+    .map(
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) => {
+        return `<div class="photo-card">
+    <a class="gallery-link" href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" loading="lazy" width="300"/></a>
       <div class="info">
         <p class="info-item">
           <b>Likes ${likes}</b>
@@ -69,10 +102,13 @@ function renderPictures(arr) {
           <b>Downloads ${downloads}</b>
         </p>
       </div>
-    </div>`
-      );
-    }
-  );
+    </div>`;
+      }
+    )
+    .join('');
+
+  refs.galleryRef.insertAdjacentHTML('beforeend', markup);
+  lightbox.refresh();
 }
 
 function clearSearch() {

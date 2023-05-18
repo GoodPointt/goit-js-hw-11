@@ -21,7 +21,9 @@ body {
   color: #212121;
   line-height: 1.5;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
+
 button {
   left: 54%;
   cursor: pointer;
@@ -31,13 +33,6 @@ button {
   position: absolute;
   width: 27px;
 }
-
-/* #search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
-} */
 
 .search-form {
   position: relative;
@@ -51,6 +46,7 @@ button {
   margin-right: auto;
   background-color: rgb(62, 156, 228);
 }
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -66,12 +62,14 @@ button {
 .info {
   display: flex;
 }
+
 .info-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
+
 .loading-img {
   position: absolute;
   left: 56%;
@@ -84,7 +82,13 @@ button {
 input:focus {
   outline: 4px solid yellow;
 }
-/* .wrap {
-  display: block;
-  width: 100
-} */
+
+.load-more {
+  border-radius: 5px;
+  color: rgb(62, 156, 228);
+  border: 2px solid rgb(62, 156, 228);
+  background-color: yellow;
+  width: 105px;
+  margin-bottom: 50px;
+  left: 44%;
+}
