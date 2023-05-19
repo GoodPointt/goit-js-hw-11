@@ -1,5 +1,5 @@
 import { Notify } from 'notiflix';
-import throttle from 'lodash.throttle';
+import throttle from 'lodash.debounce';
 
 import {
   renderGallery,
@@ -16,7 +16,6 @@ import './css/styles.css';
 
 loadMoreBtnHide();
 
-const THROTTLE_DELAY = 300;
 let currentPage = 1;
 let searchQuery = '';
 
@@ -29,7 +28,7 @@ async function onSubmit(e) {
   clearSearch();
   loadMoreBtnHide();
 
-  window.addEventListener('scroll', throttle(onScroll, THROTTLE_DELAY));
+  window.addEventListener('scroll', onScroll);
 
   searchQuery = e.currentTarget.elements.searchQuery.value.trim().toLowerCase();
 
