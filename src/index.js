@@ -9,7 +9,6 @@ import {
   loadMoreBtnShow,
 } from './ui';
 import { PER_PAGE, getPictures } from './api';
-import { resetPage, incrementPage } from './utils';
 
 import refs from './refs';
 import './css/styles.css';
@@ -87,4 +86,12 @@ function onScroll() {
   if (scrollTop + clientHeight >= scrollHeight - 5) {
     onLoadMore();
   }
+}
+
+function resetPage() {
+  currentPage = 1;
+}
+
+function incrementPage() {
+  currentPage += 1;
 }
