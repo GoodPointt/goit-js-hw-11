@@ -1,5 +1,4 @@
 import { Notify } from 'notiflix';
-import throttle from 'lodash.debounce';
 
 import {
   renderGallery,
